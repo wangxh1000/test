@@ -9,10 +9,9 @@ if (! ($content = file_get_contents ( $url ))) {
 }
 
 $pattern='/(<title>)([\s|\S]+)(<\/title)/';
-$pattern='/(<h1)([\s|\S]+)(<\/h1)/';
+$pattern='/(<h1.+>)([\s|\S]+)(<\/h1>)/';
 
 if (preg_match ( $pattern, $content, $matchs )) {
-var_dump($matchs);
 }
 
 ?>
@@ -24,8 +23,20 @@ var_dump($matchs);
 
 <body>
 <?php
-echo var_dump($matchs);
+//echo var_dump($matchs);
+
+$html = preg_replace("/<([a-zA-Z]+)[^>]*>/","<\\1>",$matchs[2]);
+echo '职位名: '.$html;
+
+
+// 职位描述是下面两个内容之间的内容
+// <!-- Description Start -->
+// <!-- End Description Area -->
+
 ?>
+
+
+
 </body>
 </html>
 
